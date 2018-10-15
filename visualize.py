@@ -15,13 +15,13 @@ from bokeh.models import ColumnDataSource, ColorBar
 
 tcsdata = quandl.get('NSE/TCS', start_date = '2015-03-01' , end_date = '2016-03-01' )
 
-# plot of close prices of stocks/indices 
+#  A - plot of close prices of stocks/indices (graph A)
 
 p = figure(plot_width=400, plot_height=400)
 p.patch(tcsdata.index,tcsdata.Close, alpha=0.5, line_width=2)
 show(p)
 
-#plot based on difference of 52 week moving average
+#  B - plot based on difference of 52 week moving average (Grapf B)
 
 source1 = ColumnDataSource(dict(x=tcsdata.Open,y=tcsdata.Close))
 a = figure(plot_width=500, plot_height=500, title="Linear Color Map Based on Y")
@@ -34,7 +34,7 @@ a.add_layout(color_bar, 'right')
 show(a)
 
 
-#closing Pricing shock without volume shock to identify volumeless price movement
+#  C - closing Pricing shock without volume shock to identify volumeless price movement (Graph C)
 difference = tcsdata.Close - window4(tcsdata).Close
 difference.head()
 
@@ -43,7 +43,7 @@ c.patch(tcsdata.index,difference, alpha=0.5, line_width=2,color = 'blue')
 show(c)
 
 
-#autocorrelation
+# D - autocorrelation (Graph D)
 closingseries = tcsdata.Close
 plot_acf(closingseries)
 
